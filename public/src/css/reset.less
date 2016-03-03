@@ -1,0 +1,100 @@
+/*重置浏览器样式属性*/
+
+@charset "utf-8";
+* {
+    
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+body{
+    font:14px/1.5 "Microsoft YaHei";
+    color:#666;
+}
+img {
+    vertical-align: middle;
+    border: 0;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul,
+li,
+ol,
+dl,
+dt,
+dd {
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+
+/* 清除浮动 */
+
+.clear {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+
+
+/**清除行内块元素的影响 **/
+
+.dibwrap {
+    font-size: 0;
+    /* 所有浏览器 */
+    *word-spacing: -1px;
+    /* IE6、7 */
+}
+
+.dibwrap .dib {
+    font-size: 14px;
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+}
+
+.dib {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+.left{
+    float:left;
+}
+.right{
+    float:right;
+}

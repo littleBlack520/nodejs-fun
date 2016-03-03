@@ -1,0 +1,129 @@
+@import "./reset.less";
+
+/****** 公共样式 ********/
+
+@bodyBg: #eeeeee;
+@maxWidth: 970px;
+@imgPath: "../images";
+@divBg: #fff;
+.box-shadow {
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+body {
+    background: @bodyBg;
+}
+
+.head-wrap {
+    @height: 50px;
+    background: #4a4a4a;
+    height: @height;
+    .head {
+        width: @maxWidth;
+        margin: 0 auto;
+        .logo {
+            .left;
+            display: block;
+            width: 120px;
+            height: @height;
+            background: url("@{imgPath}/logo.jpg");
+        }
+        .nav {
+            .left;
+        }
+        .nav li {
+            .left;
+            height: @height;
+            padding: 0 5px;
+            line-height: @height;
+            font-size: 16px;
+            &:hover {
+                background: #404040;
+            }
+        }
+        .nav li a {
+            display: block;
+            color: #eeeeee;
+        }
+    }
+}
+
+.tip-wrap {
+    .box-shadow;
+    width: (@maxWidth - 20);
+    margin: 10px auto;
+    background: @divBg;
+    padding: 5px 10px;
+    font-size: 12px;
+    & .tip-label {
+        .left;
+        font-weight: bold;
+        margin-right: 5px;
+        color: #56af45;
+    }
+    & .tip {
+        .left;
+    }
+}
+
+.main {
+    width: @maxWidth;
+    margin: 15px auto;
+}
+
+.content {
+    .left;
+    .box-shadow;
+    background: @divBg;
+    width: (640px-40px);
+    padding: 20px;
+    margin-right: 30px;
+    .article-ul li {
+        border-bottom: 1px dotted #ccc;
+        margin-bottom: 10px;
+        .info {
+            & .portrait {
+                .left;
+                width: 35px;
+                height: 35px;
+                background: url("@{imgPath}/portrait.jpg") no-repeat 0 0;
+                margin-right: 10px;
+                border-radius: 50%;
+            }
+            & .author {
+                .left;
+                height: 35px;
+                line-height: 35px;
+            }
+        }
+        .article {
+            margin-top: 10px;
+        }
+        .article img{
+            display: block;
+            max-width: 50%;
+            height: auto;
+        }
+        .other {
+            & .time {
+                font-size: 13px;
+                margin: 10px;
+                background: url("@{imgPath}/time.jpg") no-repeat 0 1px;
+                text-indent: 20px;
+            }
+        }
+    }
+}
+
+.slide {
+    .left;
+    .box-shadow;
+    background: @divBg;
+    width: (300px-20px);
+    padding: 20px 10px;
+    & .slide-content {
+        width: 280px;
+        height: 350px;
+        background: url("@{imgPath}/slide.jpg") no-repeat 0 0;
+    }
+}

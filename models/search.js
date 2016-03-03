@@ -7,20 +7,22 @@ var fs = require("fs");
 var superagent = require('../node_modules/superagent');
 var cheerio = require('../node_modules/cheerio');
 var async = require('../node_modules/async');
+var mongodb = require("./db");
 var getDataArr = [];
 
 function formatTime(time) {
     return time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 }
+
 function getData(callback, link) {
 
     superagent.get(link).set({
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-    }).end(function (req, res) {
+    }).end(function(req, res) {
         var $ = cheerio.load(res.text);
         var data = [];
 
-        $(".article").each(function (index, dom) {
+        $(".article").each(function(index, dom) {
             var json = {
                 author: "",
                 content: "",
@@ -36,14 +38,40 @@ function getData(callback, link) {
 }
 for (var i = 0; i < 10; i++) {
     var link = "http://www.qiushibaike.com/8hr/page/" + i + "/";
-    getDataArr.push(function (callback) {
-        getData(callback, link);
-    });
+    (function(link) {
+        getDataArr.push(function(callback) {
+            getData(callback, link);
+        });
+    })(link);
+
 }
-async.parallel(getDataArr,function(err,result){
-    fs.writeFile("fun.json",JSON.stringify(result),function(err,result){console.log("success");});
+async.parallel(getDataArr, function(err, result) {
+    var data = [];
+    result.map(function(elem) {
+
+        elem.map(function( child_ele) {
+            data.push(child_ele);
+        });
+    });
+    mongodb.open(function(err,db){
+        if(err){
+            console.log(err);
+        }else{
+            db.collection('hoax',function(err,collection){
+                if(err){
+                    console.log(err);
+                }else{
+                    collection.insert(data,function(err){
+                        mongodb.close();
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log("success");
+                        }
+                    });
+                }
+            });
+        }
+    });
+   // fs.writeFile("fun.json", JSON.stringify(result), function(err, result) { console.log("success"); });
 });
-
-
-
-
