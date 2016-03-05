@@ -3,8 +3,8 @@ var MongoClient = require(".././node_modules/mongodb").MongoClient,
 var database = "fun",
     host = "localhost",
     port = "27017",
-    user = "",
-    pw = "",
+    user = "root",
+    pw = "1234",
     url = "mongodb://" + host + ":" + port + "/" + database;
 var exportObject = null;
 // 打开链接
@@ -22,7 +22,6 @@ function openDb(callback) {
             });
         }
 
-
     });
 }
 // 读取集合
@@ -32,7 +31,7 @@ function readCollection(db, docs, callback) {
 
             callback(err);
         } else {
-            callback(null, collection);
+            callback(null,db,collection);
         }
 
     });
@@ -46,11 +45,11 @@ function asyncControl(docs, callback, action) {
         function(db, cb) {
             readCollection(db, docs, cb);
         },
-        function(collection, cb) {
-            action(collection, cb);
+        function(db,collection, cb) {
+            action(db,collection, cb);
         }
-    ], function(err, result,db) {
-        console.log(db);
+    ], function(err, db,result) {
+
         db.close();
         if (err) {
             console.log(err);
@@ -59,19 +58,21 @@ function asyncControl(docs, callback, action) {
         }
     });
 }
-exportObject = {
+
+
+module.exports = {
     // 插入一条数据
     // docs:集合名（相当于表）
     // data:插入的数据，array | object
     // callback:回调函数
     insert: function(docs, data, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(collection, cb) {
+        asyncControl(docs, callback, function(db,collection, cb) {
             collection.insert(data, { safe: true }, function(err, result) {
                 if (err) {
                     cb(err);
                 }
-                cb(null, result,db);
+                cb(null,db,result);
             });
         });
     },
@@ -82,12 +83,12 @@ exportObject = {
     // callback:回调函数
     update: function(docs, selector, data, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(collection, cb) {
+        asyncControl(docs, callback, function(db,collection, cb) {
             collection.update(selector, data, function(err, result) {
                 if (err) {
                     cb(err);
                 }
-                cb(null, result,db);
+                cb(null, db,result);
             });
         });
     },
@@ -98,12 +99,12 @@ exportObject = {
     // callback:回调函数
     deleteOne: function(docs, selector, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(collection, cb) {
+        asyncControl(docs, callback, function(db,collection, cb) {
             collection.deleteOne(selector, function(err, result) {
                 if (err) {
                     cb(err);
                 }
-                cb(null, result,db);
+                cb(null, db,result);
             });
         });
     },
@@ -113,23 +114,23 @@ exportObject = {
     // callback:回调函数
     find: function(docs, selector, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(collection, cb) {
+        asyncControl(docs, callback, function(db,collection, cb) {
             collection.find(selector).toArray(function(err, result) {
                 if (err) {
                     cb(err);
                 } else {
-                    cb(null, result,db);
+                    cb(null,db, result);
                 }
             });
         });
     }
 };
 
-module.exports = exportObject;
+
 //例子
-insert("choubai", [{ gui: 1, hong: 2 },{bai:1,hei:2}], function(result) {
-    console.log(result);
-});
+//insert("choubai", [{ gui: 1, hong: 2 },{bai:1,hei:2}], function(result) {
+//    console.log(result);
+//});
 // update("choubai", {gui:3},{ $set:{gui:4,hong:5}}, function(result) {
 //     console.log(result);
 // });

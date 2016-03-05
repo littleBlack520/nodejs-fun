@@ -36,7 +36,7 @@ function getData(callback, link) {
         callback(null, data);
     });
 }
-for (var i = 0; i < 10; i++) {
+for (var i = 1; i < 11; i++) {
     var link = "http://www.qiushibaike.com/8hr/page/" + i + "/";
     (function(link) {
         getDataArr.push(function(callback) {
@@ -53,25 +53,8 @@ async.parallel(getDataArr, function(err, result) {
             data.push(child_ele);
         });
     });
-    mongodb.open(function(err,db){
-        if(err){
-            console.log(err);
-        }else{
-            db.collection('hoax',function(err,collection){
-                if(err){
-                    console.log(err);
-                }else{
-                    collection.insert(data,function(err){
-                        mongodb.close();
-                        if(err){
-                            console.log(err);
-                        }else{
-                            console.log("success");
-                        }
-                    });
-                }
-            });
-        }
+    mongodb.insert("test",data,function(result){
+        console.log("success");
     });
    // fs.writeFile("fun.json", JSON.stringify(result), function(err, result) { console.log("success"); });
 });
