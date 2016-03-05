@@ -53,7 +53,7 @@ async.parallel(getDataArr, function(err, result) {
             data.push(child_ele);
         });
     });
-    mongodb.insert("test",data,function(result){
+    mongodb.insert("hoax",data,function(result){
         console.log("success");
     });
    // fs.writeFile("fun.json", JSON.stringify(result), function(err, result) { console.log("success"); });

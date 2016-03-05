@@ -13,13 +13,13 @@ function openDb(callback) {
         if (err) {
             callback(err);
         } else {
-            db.authenticate(user, pw, function(err_auth, result) {
-                if (err_auth) {
-                    callback(err);
-                } else {
+            // db.authenticate(user, pw, function(err_auth, result) {
+            //     if (err_auth) {
+            //         callback(err);
+            //     } else {
                     callback(null, db);
-                }
-            });
+            //     }
+            // });
         }
 
     });
