@@ -24,26 +24,33 @@ function getData(callback, link) {
 
         $(".article").each(function(index, dom) {
             var json = {
-                author: "",
-                content: "",
-                createTime: ""
+                author: "", //作者
+                authorPic:"",//作者图片
+                content: "",//内容
+                support:"",//好笑数
+                createTime: ""//创建时间
             };
             json.author = $(dom).find(".author a").eq(1).find("h2").text();
+            json.authorPic = $(dom).find(".author a img").attr("src");
             json.content = $(dom).find(".content").text() + "<img src='" + $(dom).find("img").attr("src") + "' />";
+            json.support = parseInt( $(dom).find(".stats-vote i").text());
             json.createTime = formatTime(new Date());
-            data.push(json);
+            console.log(json.support);
+            if(json.support >=200){
+                data.push(json);
+            }
+
         });
         callback(null, data);
     });
 }
-for (var i = 1; i < 11; i++) {
+for (var i = 1; i < 6; i++) {
     var link = "http://www.qiushibaike.com/8hr/page/" + i + "/";
-    (function(link) {
-        getDataArr.push(function(callback) {
+    (function (link) {
+        getDataArr.push(function (callback) {
             getData(callback, link);
         });
     })(link);
-
 }
 async.parallel(getDataArr, function(err, result) {
     var data = [];
@@ -57,4 +64,4 @@ async.parallel(getDataArr, function(err, result) {
         console.log("success");
     });
    // fs.writeFile("fun.json", JSON.stringify(result), function(err, result) { console.log("success"); });
-});
+})

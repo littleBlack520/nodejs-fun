@@ -17,7 +17,7 @@ function openDb(callback) {
             //     if (err_auth) {
             //         callback(err);
             //     } else {
-                    callback(null, db);
+            callback(null, db);
             //     }
             // });
         }
@@ -31,7 +31,7 @@ function readCollection(db, docs, callback) {
 
             callback(err);
         } else {
-            callback(null,db,collection);
+            callback(null, db, collection);
         }
 
     });
@@ -45,34 +45,34 @@ function asyncControl(docs, callback, action) {
         function(db, cb) {
             readCollection(db, docs, cb);
         },
-        function(db,collection, cb) {
-            action(db,collection, cb);
+        function(db, collection, cb) {
+            action(db, collection, cb);
         }
-    ], function(err, db,result) {
+    ], function(err, db, result,total) {
 
         db.close();
         if (err) {
             console.log(err);
         } else {
-            callback(result);
+            callback(result,total);
         }
     });
 }
 
 
-module.exports = {
+module.exports  ={
     // 插入一条数据
     // docs:集合名（相当于表）
     // data:插入的数据，array | object
     // callback:回调函数
     insert: function(docs, data, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(db,collection, cb) {
+        asyncControl(docs, callback, function(db, collection, cb) {
             collection.insert(data, { safe: true }, function(err, result) {
                 if (err) {
                     cb(err);
                 }
-                cb(null,db,result);
+                cb(null, db, result);
             });
         });
     },
@@ -83,12 +83,12 @@ module.exports = {
     // callback:回调函数
     update: function(docs, selector, data, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(db,collection, cb) {
+        asyncControl(docs, callback, function(db, collection, cb) {
             collection.update(selector, data, function(err, result) {
                 if (err) {
                     cb(err);
                 }
-                cb(null, db,result);
+                cb(null, db, result);
             });
         });
     },
@@ -99,12 +99,12 @@ module.exports = {
     // callback:回调函数
     deleteOne: function(docs, selector, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(db,collection, cb) {
+        asyncControl(docs, callback, function(db, collection, cb) {
             collection.deleteOne(selector, function(err, result) {
                 if (err) {
                     cb(err);
                 }
-                cb(null, db,result);
+                cb(null, db, result);
             });
         });
     },
@@ -114,18 +114,35 @@ module.exports = {
     // callback:回调函数
     find: function(docs, selector, callback) {
         callback = callback || function() {};
-        asyncControl(docs, callback, function(db,collection, cb) {
+        asyncControl(docs, callback, function(db, collection, cb) {
             collection.find(selector).toArray(function(err, result) {
                 if (err) {
                     cb(err);
                 } else {
-                    cb(null,db, result);
+                    cb(null, db, result);
                 }
+            });
+        });
+    },
+    findPage: function(docs, selector, page, count, callback) {
+        callback = callback || function() {};
+        asyncControl(docs, callback, function(db, collection, cb) {
+            collection.count(selector, function(err, total) {
+                collection.find(selector, {
+                    skip: (page - 1) * count,
+                    limit: count
+                }).sort({ time: -1 }).toArray(function(err, result) {
+                    if (err) {
+                        cb(err);
+                    } else {
+                        cb(null, db, result,total);
+                    }
+                });
+
             });
         });
     }
 };
-
 
 //例子
 //insert("choubai", [{ gui: 1, hong: 2 },{bai:1,hei:2}], function(result) {
@@ -140,3 +157,8 @@ module.exports = {
 // find("choubai",{},function(result){
 //    console.log(result);
 // });
+//
+//exportObject.findPage("hoax",{},10,10,function(result,total){
+//    console.log(result);
+//    console.log(total);
+//})

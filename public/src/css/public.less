@@ -9,7 +9,9 @@
 .box-shadow {
     box-shadow: 2px 2px 5px #ccc;
 }
-
+.hide{
+    display: none;
+}
 body {
     background: @bodyBg;
 }
@@ -78,6 +80,13 @@ body {
     width: (640px-40px);
     padding: 20px;
     margin-right: 30px;
+    .loading{
+        width:180px;
+        height:180px;
+        margin:0 auto;
+        background: url("@{imgPath}/loading.gif") no-repeat 0 0;
+        display: none;
+    }
     .article-ul li {
         border-bottom: 1px dotted #ccc;
         margin-bottom: 10px;
@@ -99,7 +108,7 @@ body {
         .article {
             margin-top: 10px;
         }
-        .article img{
+        .article img {
             display: block;
             max-width: 50%;
             height: auto;
@@ -125,5 +134,75 @@ body {
         width: 280px;
         height: 350px;
         background: url("@{imgPath}/slide.jpg") no-repeat 0 0;
+    }
+}
+
+.page {
+    @activeColor: #E2B11B;
+    @borderColor: #DAE2ED;
+    & div,
+    & .page-list li {
+        .left;
+        height: 26px;
+        line-height: 26px;
+        color: #666;
+        font-weight: bold;
+    }
+    & .prev,
+    & .next,
+    & .page-list li {
+        border: 1px solid @borderColor;
+        border-radius: 2px;
+        text-align: center;
+        padding: 0 8px;
+        margin-right: 5px;
+        cursor: pointer;
+        &:hover {
+            color: @activeColor;
+        }
+    }
+    & .prev,
+    & .next{
+        font-size: 18px;
+         padding: 0 5px;
+    }
+    & .prev.off,
+    & .next.off {
+        border: 1px solid #CCCCCC;
+        background: #ECEDEF;
+        color: #CCCCCC;
+    }
+    & .page-list li.on {
+        color: @activeColor;
+    }
+     & .page-list li.dots{
+        border:none;
+     }
+    & .gopage {
+        margin-left: 10px;
+        font-weight: normal;
+    }
+    & .gopage .page-input {
+        width: 35px;
+        height: 20px;
+        border: 1px solid @borderColor;
+        margin: 0 5px;
+    }
+    & .gopage .page-btn {
+        border: 1px solid @borderColor;
+        font-family: '微软雅黑';
+        line-height: 25px;
+        height: 25px;
+        font-size: 12px;
+        padding: 0 5px;
+        cursor: pointer;
+        margin-left: 10px;
+        background: inherit;
+        &:hover {
+            color: @activeColor;
+        }
+    }
+    & .page-err {
+        color: #C63535;
     }
 }

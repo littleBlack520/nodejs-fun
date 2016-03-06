@@ -84,6 +84,9 @@ h6 {
 .box-shadow {
   box-shadow: 2px 2px 5px #ccc;
 }
+.hide {
+  display: none;
+}
 body {
   background: #eeeeee;
 }
@@ -148,6 +151,13 @@ body {
   padding: 20px;
   margin-right: 30px;
 }
+.content .loading {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  background: url("../images/loading.gif") no-repeat 0 0;
+  display: none;
+}
 .content .article-ul li {
   border-bottom: 1px dotted #ccc;
   margin-bottom: 10px;
@@ -190,4 +200,71 @@ body {
   width: 280px;
   height: 350px;
   background: url("../images/slide.jpg") no-repeat 0 0;
+}
+.page div,
+.page .page-list li {
+  float: left;
+  height: 26px;
+  line-height: 26px;
+  color: #666;
+  font-weight: bold;
+}
+.page .prev,
+.page .next,
+.page .page-list li {
+  border: 1px solid #DAE2ED;
+  border-radius: 2px;
+  text-align: center;
+  padding: 0 8px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.page .prev:hover,
+.page .next:hover,
+.page .page-list li:hover {
+  color: #E2B11B;
+}
+.page .prev,
+.page .next {
+  font-size: 18px;
+  padding: 0 5px;
+}
+.page .prev.off,
+.page .next.off {
+  border: 1px solid #CCCCCC;
+  background: #ECEDEF;
+  color: #CCCCCC;
+}
+.page .page-list li.on {
+  color: #E2B11B;
+}
+.page .page-list li.dots {
+  border: none;
+}
+.page .gopage {
+  margin-left: 10px;
+  font-weight: normal;
+}
+.page .gopage .page-input {
+  width: 35px;
+  height: 20px;
+  border: 1px solid #DAE2ED;
+  margin: 0 5px;
+}
+.page .gopage .page-btn {
+  border: 1px solid #DAE2ED;
+  font-family: '微软雅黑';
+  line-height: 25px;
+  height: 25px;
+  font-size: 12px;
+  padding: 0 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  background: inherit;
+}
+.page .gopage .page-btn:hover {
+  color: #E2B11B;
+}
+.page .page-err {
+  color: #C63535;
 }

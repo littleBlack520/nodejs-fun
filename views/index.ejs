@@ -8,13 +8,17 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link href="bulid/css/public.css" rel="stylesheet">
+	<link rel="shortcut icon" href="bulid/images/fav.ico">
 </head>
 
 <body>
 	<%- include head %>
     <div class="main clearfix">
         <div class="content">
-            <ul class="article-ul">
+            <div class="loading">
+                
+            </div>
+            <ul class="article-ul" data-total="<%=total%>">
                 <!--<li>-->
                 	<!--<div class="info clearfix">-->
                 		<!--<div class="portrait"></div>-->
@@ -29,6 +33,7 @@
                 <!--</li>-->
    		<% list.forEach(function(ele,index){ %>
 			<li>
+
 			<div class="info clearfix">
 					<div class="portrait"></div>
 					<div class="author">
@@ -45,14 +50,15 @@
 			</li>
 		<% }) %>
             </ul>
-
+            <%- include page %>
         </div>
         <div class="slide">
         	<div class="slide-content">
         	</div>
-
         </div>
     </div>
 </body>
-
+<script type="text/javascript" src="bulid/js/jquery.min.js"></script>
+<script type="text/javascript" src="bulid/js/page.js"></script>
+<script type="text/javascript" src="bulid/js/index.js"></script>
 </html>
