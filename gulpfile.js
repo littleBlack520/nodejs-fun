@@ -11,6 +11,6 @@ gulp.task('taskless',function(){
 	.pipe(less())
 	.pipe(gulp.dest(bulidPath));
 });
-gulp.task('taskwatch',function(){
+gulp.task('default',function(){
    return	gulp.watch(srcPath+'css/*.less',['taskless']);
 });

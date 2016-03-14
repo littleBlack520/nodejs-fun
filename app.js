@@ -20,7 +20,7 @@ app.use(cookieParser());//加载解析cookie的中间件。
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 
 //设置路径
-app.use(express.static(path.join(__dirname, 'public')));//置public文件夹为存放静态文件的目录。
+app.use(express.static(path.join(__dirname, 'public/bulid')));//置public文件夹为存放静态文件的目录。
 //app.use(favicon(__dirname+'/public/images/favicon.ico'));//设置/public/favicon.ico为favicon图标。
 //路由控制器。
 routes(app);

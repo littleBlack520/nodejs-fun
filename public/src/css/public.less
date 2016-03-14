@@ -9,9 +9,11 @@
 .box-shadow {
     box-shadow: 2px 2px 5px #ccc;
 }
-.hide{
+
+.hide {
     display: none;
 }
+
 body {
     background: @bodyBg;
 }
@@ -36,7 +38,7 @@ body {
         .nav li {
             .left;
             height: @height;
-            padding: 0 5px;
+            padding: 0 20px;
             line-height: @height;
             font-size: 16px;
             &:hover {
@@ -80,10 +82,10 @@ body {
     width: (640px-40px);
     padding: 20px;
     margin-right: 30px;
-    .loading{
-        width:180px;
-        height:180px;
-        margin:0 auto;
+    .loading {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
         background: url("@{imgPath}/loading.gif") no-repeat 0 0;
         display: none;
     }
@@ -162,9 +164,9 @@ body {
         }
     }
     & .prev,
-    & .next{
+    & .next {
         font-size: 18px;
-         padding: 0 5px;
+        padding: 0 5px;
     }
     & .prev.off,
     & .next.off {
@@ -175,9 +177,9 @@ body {
     & .page-list li.on {
         color: @activeColor;
     }
-     & .page-list li.dots{
-        border:none;
-     }
+    & .page-list li.dots {
+        border: none;
+    }
     & .gopage {
         margin-left: 10px;
         font-weight: normal;
@@ -204,5 +206,27 @@ body {
     }
     & .page-err {
         color: #C63535;
+    }
+}
+
+.watefull {
+    & img{
+        width:100%;
+        height:auto;
+
+    }
+    & .watefull-list {
+        margin-right: -16px;
+    }
+    & .watefull-list li {
+        width: 230px;
+        float: left;
+        margin-right: 16px;
+    }
+    & .pic-box {
+        padding: 10px 10px 10px;
+        background: #fff;
+        margin-bottom: 20px;
+        box-shadow: 1px 1px 1px rgba(34, 25, 25, 0.4);
     }
 }

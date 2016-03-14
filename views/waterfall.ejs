@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>有趣网</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="referrer" content="never">
+
+    <link href="css/public.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/fav.ico">
+</head>
+
+<body>
+    <%- include head %>
+    <div class="main">
+        <div class="watefull">
+            <ul class="watefull-list clearfix" data-total="<%= total %>">
+    <li class="li-1">
+           <%  for(var i =0;i<list.length/4;i++) { %>
+               
+                    <div class="pic-box"><img src="<%= list[i].imagePath %>" alt=""></div>
+               
+           <%  }  %>
+            </li>
+            <li class="li-2">
+              <%  for(var i =list.length/4;i<2*list.length/4;i++) { %>
+                
+                    <div class="pic-box"><img src="<%= list[i].imagePath %>" alt=""></div>
+                
+           <%  }  %>
+           </li>
+            <li class="li-3" >
+             <%  for(var i =2*list.length/4;i<3*list.length/4;i++) { %>
+               
+                    <div class="pic-box"><img src="<%= list[i].imagePath %>" alt=""></div>
+                
+           <%  }  %>
+           </li>
+           <li class="li-4" >
+           <%  for(var i =3*list.length/4;i<4*list.length/4;i++) { %>
+                
+                    <div class="pic-box"><img src="<%= list[i].imagePath %>" alt=""></div>
+               
+           <%  }  %>  
+ </li>
+
+            </ul>
+            <div class="loading hide">
+                
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/waterfall.js"></script>
+</html>

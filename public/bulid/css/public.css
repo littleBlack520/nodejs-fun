@@ -111,7 +111,7 @@ body {
 .head-wrap .head .nav li {
   float: left;
   height: 50px;
-  padding: 0 5px;
+  padding: 0 20px;
   line-height: 50px;
   font-size: 16px;
 }
@@ -267,4 +267,22 @@ body {
 }
 .page .page-err {
   color: #C63535;
+}
+.watefull img {
+  width: 100%;
+  height: auto;
+}
+.watefull .watefull-list {
+  margin-right: -16px;
+}
+.watefull .watefull-list li {
+  width: 230px;
+  float: left;
+  margin-right: 16px;
+}
+.watefull .pic-box {
+  padding: 10px 10px 10px;
+  background: #fff;
+  margin-bottom: 20px;
+  box-shadow: 1px 1px 1px rgba(34, 25, 25, 0.4);
 }

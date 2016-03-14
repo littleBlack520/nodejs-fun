@@ -43,7 +43,9 @@ async.whilst(function() {
 
             picarray.map(function(dom) {
                 data.push({
-                    imagePath: host + dom.file.key,
+                    width:dom.file.width,
+                    height:dom.file.height,
+                    imagePath: host + dom.file.key,   
                     imageid: dom.pin_id,
                     createTime: formatTime(new Date())
                 });
