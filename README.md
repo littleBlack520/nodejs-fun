@@ -1,9 +1,10 @@
 
 这个是我刚入门学nodejs时，写的一个网站。网页框架用express加mysql。
 由于是上一年写的代码，当时nodejs还是用的是4.4的版本，所以没有用ES6的相关特性。但是作为刚入门nodejs的网站，还是有点参考意义的。所以我对这个网站重新整理了一下，发布到线上，开放源码给大家学学。
+
 地址：[有趣网（http://fun.blackfe.com/）](http://fun.blackfe.com/)。
-源码：[https://github.com/littleBlack520/nodejs-fun](https://github.com/littleBlack520/nodejs-fun)
-![有趣网](web.jpg)
+
+博客：[技术小黑屋http://blackfe.com/](http://blackfe.com/)
 
 # 运行
 先安装网站所依赖的npm包  
