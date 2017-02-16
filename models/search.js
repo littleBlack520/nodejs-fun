@@ -3,17 +3,20 @@
  */
 var http = require("http");
 var url = require('url');
-var fs = require("fs");
 var superagent = require('../node_modules/superagent');
 var cheerio = require('../node_modules/cheerio');
 var async = require('../node_modules/async');
-var mongodb = require("./db");
-var getDataArr = [];
+var db = require("./db");
+var getDataArr = [], //爬取的数据
+    href ="http://www.qiushibaike.com/8hr/page/", //要爬取的网址
+    startPage=1, //开始的页面
+    endPage=3; //结束的页面
 
+//格式化时间
 function formatTime(time) {
     return time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 }
-
+//获取数据
 function getData(callback, link) {
 
     superagent.get(link).set({
@@ -35,7 +38,7 @@ function getData(callback, link) {
             json.content = $(dom).find(".content").text() + "<img src='" + $(dom).find("img").attr("src") + "' />";
             json.support = parseInt( $(dom).find(".stats-vote i").text());
             json.createTime = formatTime(new Date());
-            console.log(json.support);
+            console.log( json.support);
             if(json.support >=200){
                 data.push(json);
             }
@@ -44,14 +47,16 @@ function getData(callback, link) {
         callback(null, data);
     });
 }
-for (var i = 1; i < 6; i++) {
-    var link = "http://www.qiushibaike.com/8hr/page/" + i + "/";
+//循环爬取
+for (var i = startPage; i < endPage; i++) {
+   var link = href + i +"/" ;
     (function (link) {
         getDataArr.push(function (callback) {
             getData(callback, link);
         });
     })(link);
 }
+//插入数据库
 async.parallel(getDataArr, function(err, result) {
     var data = [];
     result.map(function(elem) {
@@ -60,8 +65,8 @@ async.parallel(getDataArr, function(err, result) {
             data.push(child_ele);
         });
     });
-    mongodb.insert("hoax",data,function(result){
-        console.log("success");
+    db.multInsert("hoax",data,function(result, fields){
+        console.log(result.length);
     });
-   // fs.writeFile("fun.json", JSON.stringify(result), function(err, result) { console.log("success"); });
+
 })

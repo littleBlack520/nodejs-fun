@@ -3,24 +3,24 @@
  */
 var http = require("http");
 var url = require('url');
-var fs = require("fs");
 var superagent = require('../node_modules/superagent');
-var cheerio = require('../node_modules/cheerio');
 var async = require('../node_modules/async');
-var mongodb = require("./db");
+var db = require("./db");
 var getDataArr = [];
 
 
-var limit = 100,
-    count = 1000 / limit,
-    max = 590908535,
-    url = "",
-    data = [];
+var limit = 100, //每页的条数
+    sum = 1000, //总条数
+    count = sum / limit,
+    max = 590908535, //开始的的图片ID
+    url = "", //网址
+    data = []; //获取的数据
 
+//格式化时间
 function formatTime(time) {
     return time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 }
-
+//获取数据
 async.whilst(function() {
     return count > 0;
 }, function(cb) {
@@ -34,8 +34,6 @@ async.whilst(function() {
         'X-Request': 'JSON',
         'X-Requested-With': 'XMLHttpRequest'
     }).end(function(req, res) {
-
-
         var result = JSON.parse(res.text),
             picarray = result.board.pins,
             host = "http://img.hb.aicdn.com/";
@@ -45,13 +43,13 @@ async.whilst(function() {
                 data.push({
                     width:dom.file.width,
                     height:dom.file.height,
-                    imagePath: host + dom.file.key,   
-                    imageid: dom.pin_id,
+                    imagePath: host + dom.file.key,
+                    pathID: dom.pin_id,
                     createTime: formatTime(new Date())
                 });
 
             });
-            max = data[data.length - 1].imageid;
+            max = data[data.length - 1].pathID;
         }
         count--;
         cb();
@@ -62,10 +60,10 @@ async.whilst(function() {
     if (err) {
         console.log(err);
     } else {
-        mongodb.insert("brow", data, function(result) {
-            console.log("success");
+        db.multInsert("brow", data, function(result) {
+            console.log(result.length);
         });
-        //fs.writeFile("fun.json", JSON.stringify(data), function(err, result) { console.log("success"); });
+
     }
 
 });

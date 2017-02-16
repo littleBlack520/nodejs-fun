@@ -53,10 +53,13 @@
         colnum = count / 4,
         cur = 2;
 
-    var srollPos = $(window).scrollTop(), //滚动条距离顶部的高度
-        windowHeight = $(window).height(), //窗口的高度
-        dbHiht = $("body").height(); //整个页面文件的高度
+    var srollPos , //滚动条距离顶部的高度
+        windowHeight , //窗口的高度
+        dbHiht ; //整个页面文件的高度
     $(window).scroll(function() {
+            srollPos = $(window).scrollTop(),
+            windowHeight = $(window).height(),
+            dbHiht = $("body").height();
         if ((windowHeight + srollPos) >= (dbHiht) && cur <= times) {
             getData(cur, count);
         }
