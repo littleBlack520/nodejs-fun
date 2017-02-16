@@ -2,11 +2,11 @@ var mysql = require(".././node_modules/mysql");
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'a1417789619',
+    password: '123456',
     database: 'fun',
     multipleStatements: true
 });
-//设置插入语句
+//璁剧疆鎻掑叆璇彞
 function setInsertSql(table,obj){
     var key = "",
         value = "";
@@ -18,7 +18,7 @@ function setInsertSql(table,obj){
     value = value.substring(0,value.length-1);
     return    "INSERT INTO "+table+" ( "+key+") VALUES ("+value+")";
 }
-//执行查询
+//鎵ц鏌ヨ
 function query(sql,callback){
 
     connection.query(sql, function (error, results, fields) {
@@ -31,13 +31,13 @@ function query(sql,callback){
 
 }
 module.exports =  {
-    //插入单条数据
+    //鎻掑叆鍗曟潯鏁版嵁
     insert:function(table,obj,callback){
         var sql =   setInsertSql(table,obj);
         query(sql,callback);
 
     },
-    //插入多条数据
+    //鎻掑叆澶氭潯鏁版嵁
     multInsert:function(table,arr,callback){
         var sql = "";
         for(var i =0;i<arr.length;i++){
@@ -46,15 +46,15 @@ module.exports =  {
         sql = sql.substring(0,sql.length-1);
         query(sql,callback);
     },
-    //查询
+    //鏌ヨ
     select:function(sql,callback){
         query(sql,callback);
     },
-    //获取总的数量
+    //鑾峰彇鎬荤殑鏁伴噺
     getCount:function(table,callback){
         query("select count(id) num from "+table, callback);
     },
-    //分页查询
+    //鍒嗛〉鏌ヨ
     selectPage:function(table, page,limit,callback){
         var start = (page-1)*limit,
             end = limit;
