@@ -1,6 +1,11 @@
-这个我刚入门学nodejs时，写的一个网站。网页框架用express加mysql。
+
+这个是我刚入门学nodejs时，写的一个网站。网页框架用express加mysql。
 由于是上一年写的代码，当时nodejs还是用的是4.4的版本，所以没有用ES6的相关特性。但是作为刚入门nodejs的网站，还是有点参考意义的。所以我对这个网站重新整理了一下，发布到线上，开放源码给大家学学。
-###运行
+地址：[有趣网（http://fun.blackfe.com/）](http://fun.blackfe.com/)。
+源码：[https://github.com/littleBlack520/nodejs-fun](https://github.com/littleBlack520/nodejs-fun)
+![有趣网](web.jpg)
+
+# 运行
 先安装网站所依赖的npm包  
 
 ```
@@ -31,12 +36,11 @@ var connection = mysql.createConnection({
 npm start
 ```
 
-启动成功之后，在浏览器中输入http://localhost:3000/就可以访问了。
+启动成功之后，在浏览器中输入访问http://localhost:3000
 
-###获取数据
+# 获取数据
 由于还没有数据，所以我们看到仍是一个空网站。我写了两个脚本去爬取数据。这两个脚本在models目录中。
-search.js爬取的是糗事百科（http://www.qiushibaike.com/）的文章，在命令行中输入node search.js来执行。其中主要使用了两个插件，一个是superagent，一个是cheerio。通过superagent去爬取网页，然后用cherrio来筛选数据。
-
+search.js爬取的是[糗事百科](http://www.qiushibaike.com/)的文章，在命令行中输入node search.js来执行。其中主要使用了两个插件，一个是superagent，一个是cheerio。通过superagent去爬取网页，然后用cherrio来筛选数据。
 默认爬取的是3个页面的数据，可以自己修改endPage的数量。
 
 ```
@@ -46,7 +50,7 @@ var getDataArr = [], //爬取的数据
     endPage=3; //结束的页面
 ```
 
-brow.js爬取的是花瓣网的表情包（http://huaban.com/boards/16886057//?md=newbn&funny），在命令行中输入node brow.js来执行。由于是直接调取花瓣网的接口获取数据的，所以不需要cherrio筛选数据。
+brow.js爬取的是[花瓣网的表情包](http://huaban.com/boards/16886057//?md=newbn&funny)，在命令行中输入node brow.js来执行。由于是直接调取花瓣网的接口获取数据的，所以不需要cherrio筛选数据。
 默认爬取的是1000个图片，可以自己修改sum的数量。
 
 ```
@@ -57,5 +61,3 @@ var limit = 100, //每页的条数
     url = "", //网址
     data = []; //获取的数据
 ```
-
-
